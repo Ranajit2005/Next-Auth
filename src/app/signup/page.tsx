@@ -5,6 +5,7 @@ import axios from "axios";
 // import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation"; // check this hooks comes from next/navigation
 import Link from "next/link";
+import {toast} from 'react-toastify';
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -42,8 +43,22 @@ export default function SignUpPage() {
       setLoading(true);
       const response = await axios.post("/api/users/signup", user); //useing axios we send the data to the backend signup
       console.log("Signup successfully", response.data); //If signup successfully then we get the data
+
+      toast.success("Sign Up successfully",{
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: true,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+      });
+
+
       router.push("/login"); //After signup we redirect to login page
     } catch (error: unknown) {
+      toast.error("User Already Exist");   //If signup failed then we show a pop-up
       console.log("SignUp failed");
       return {
         error : getErrorMessage(error),

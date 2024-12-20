@@ -41,12 +41,21 @@ export default function LogInPage() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user); //useing axios we send the data to the backend signup
-      toast.success("LogIn successfully");
+      toast.success("LogIn successfully",{
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: true,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });    //If login successfully then we show a pop-up
       console.log("LogIn successfully", response.data); //If login successfully then we get the data
       router.push("/profile"); //After login we redirect to profile page
     } catch (error: unknown) {
       console.log("LogIn failed");
-      toast.error("Invalid Credintials");
+      toast.error("Invalid Credintials");   //If login failed then we show a pop-up
       return {
         error : getErrorMessage(error),
       }

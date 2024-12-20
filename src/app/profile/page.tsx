@@ -2,7 +2,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import Link from 'next/link'
-import {toast} from 'react-hot-toast'
+import {toast} from 'react-toastify'
 import { useRouter } from 'next/navigation'
 
 export default function ProfilePage() {
@@ -36,10 +36,11 @@ export default function ProfilePage() {
     } catch (error: unknown) {
 
       console.log("Profile data failed")
+      // toast.error(error.message)
       return {
         error : getErrorMessage(error),
       }
-      // toast.error(error.message)
+      
     }
   }
 
@@ -51,6 +52,7 @@ export default function ProfilePage() {
 
     } catch (error: unknown) {
       console.log("Logout failed")
+      toast.error("Logout failed")
       return {
         error : getErrorMessage(error),
       }
