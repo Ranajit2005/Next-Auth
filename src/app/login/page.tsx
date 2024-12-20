@@ -5,6 +5,7 @@ import axios from "axios";
 // import { toast } from "react-hot-toast";
 import { useRouter } from "next/navigation"; // check this hooks comes from next/navigation
 import Link from "next/link";
+import {toast} from 'react-toastify';
 
 export default function LogInPage() {
   const router = useRouter();
@@ -40,10 +41,12 @@ export default function LogInPage() {
     try {
       setLoading(true);
       const response = await axios.post("/api/users/login", user); //useing axios we send the data to the backend signup
+      toast.success("LogIn successfully");
       console.log("LogIn successfully", response.data); //If login successfully then we get the data
       router.push("/profile"); //After login we redirect to profile page
     } catch (error: unknown) {
       console.log("LogIn failed");
+      toast.error("Invalid Credintials");
       return {
         error : getErrorMessage(error),
       }
